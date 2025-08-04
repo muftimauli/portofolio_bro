@@ -43,7 +43,7 @@ const tabs = [
   { id: 'hobi', label: 'Hobi', borderColor: 'border-green-500', glowColor: '#22c55e', bgColor: 'bg-green-900/30' },
 ];
 
-// Fungsi untuk membuat class statis Tailwind untuk ItemCard
+// Fungsi untuk kelas Tailwind statis agar hover dan warna tampil dengan benar
 const getItemCardClass = (isSelected, item) => {
   const base = 'aspect-square flex items-center justify-center relative transition-all duration-200 border-2 rounded-lg ';
   if (isSelected) {
@@ -132,7 +132,6 @@ export default function About() {
             </div>
           </motion.div>
         );
-
       case 'keahlian-minat':
         return (
           <motion.div
@@ -163,7 +162,6 @@ export default function About() {
             </div>
           </motion.div>
         );
-
       case 'organisasi':
         return (
           <motion.div
@@ -198,7 +196,6 @@ export default function About() {
             </div>
           </motion.div>
         );
-
       case 'hobi':
         return (
           <motion.div
