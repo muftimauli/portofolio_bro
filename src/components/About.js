@@ -8,6 +8,7 @@ import { GiPaintBrush, GiGuitar } from 'react-icons/gi';
 import Image from 'next/image';
 import IconGilir from './IconGilir';
 
+// Item data dengan ikon dan warna (tidak diubah)
 const itemData = {
   html: { name: 'HTML', icon: <FaHtml5 size={24} className="text-orange-500" />, description: 'Mampu membuat struktur web kompleks dengan semantik HTML5 dan aksesibilitas.', bgColor: 'bg-orange-900/30', glowColor: 'shadow-[0_0_15px_#fb923c,0_0_25px_#fb923c]' },
   css: { name: 'CSS', icon: <FaCss3Alt size={24} className="text-blue-500" />, description: 'Menguasai styling responsif, animasi CSS, dan framework seperti Tailwind.', bgColor: 'bg-cyan-900/30', glowColor: 'shadow-[0_0_15px_#22d3ee,0_0_25px_#22d3ee]' },
@@ -43,6 +44,16 @@ const tabs = [
   { id: 'hobi', label: 'Hobi', borderColor: 'border-green-500', glowColor: '#22c55e', bgColor: 'bg-green-900/30' },
 ];
 
+// Fungsi untuk membuat class statis Tailwind untuk ItemCard
+const getItemCardClass = (isSelected, item) => {
+  const base = 'aspect-square flex items-center justify-center relative transition-all duration-200 border-2 rounded-lg ';
+  if (isSelected) {
+    return `${base}${item.bgColor} border-cyan-500 ${item.glowColor} backdrop-blur-md scale-105`;
+  }
+  // kelas tanpa interpolasi dinamis untuk hover dan lainnya
+  return `${base} bg-gray-800/50 border-gray-700/50 group-hover:bg-gray-900 group-hover:border-cyan-500 group-hover:shadow-lg group-hover:backdrop-blur-md`;
+};
+
 const ItemCard = ({ item, isSelected, onClick, delay }) => (
   <motion.div
     className="relative group cursor-pointer"
@@ -52,11 +63,7 @@ const ItemCard = ({ item, isSelected, onClick, delay }) => (
     whileHover={{ scale: 1.05 }}
   >
     <div
-      className={`aspect-square flex items-center justify-center relative transition-all duration-200 border-2 rounded-lg ${
-        isSelected
-          ? `${item.bgColor} border-cyan-500 ${item.glowColor} backdrop-blur-md scale-105`
-          : `bg-gray-800/50 border-gray-700/50 group-hover:${item.bgColor} group-hover:border-cyan-500 group-hover:${item.glowColor} group-hover:backdrop-blur-md`
-      }`}
+      className={getItemCardClass(isSelected, item)}
       style={{ width: '4rem', height: '4rem' }}
     >
       {item.icon}
@@ -127,7 +134,6 @@ export default function About() {
             </div>
           </motion.div>
         );
-
       case 'keahlian-minat':
         return (
           <motion.div
@@ -147,32 +153,18 @@ export default function About() {
             <div className="bg-gray-900/80 backdrop-blur-md p-3 sm:p-4 rounded-lg border border-blue-500/30 shadow-[0_0_8px_rgba(59,130,246,0.3)] w-full sm:w-1/2 order-1">
               <div className="grid grid-cols-4 gap-1 sm:gap-3">
                 {skills.map((skill, index) => (
-                  <motion.div
+                  <ItemCard
                     key={skill.name}
-                    className="relative group cursor-pointer"
+                    item={skill}
+                    isSelected={selectedSkill?.name === skill.name}
                     onClick={() => setSelectedSkill(skill)}
-                    data-aos="fade-up"
-                    data-aos-delay={100 + (index % 5) * 50}
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <div
-                      className={`aspect-square flex items-center justify-center relative transition-all duration-200 border-2 rounded-lg ${
-                        selectedSkill?.name === skill.name
-                          ? `${skill.bgColor} border-cyan-500 ${skill.glowColor} backdrop-blur-md scale-105`
-                          : `bg-gray-800/50 border-gray-700/50 group-hover:${skill.bgColor} group-hover:border-cyan-500 group-hover:${skill.glowColor} group-hover:backdrop-blur-md`
-                      }`}
-                      style={{ width: '3rem', height: '3rem' }}
-                    >
-                      {skill.icon}
-                    </div>
-                    <p className="text-center text-gray-300 text-xs font-mono mt-1 truncate">{skill.name}</p>
-                  </motion.div>
+                    delay={100 + (index % 5) * 50}
+                  />
                 ))}
               </div>
             </div>
           </motion.div>
         );
-
       case 'organisasi':
         return (
           <motion.div
@@ -207,7 +199,6 @@ export default function About() {
             </div>
           </motion.div>
         );
-
       case 'hobi':
         return (
           <motion.div
@@ -227,32 +218,18 @@ export default function About() {
             <div className="bg-gray-900/80 backdrop-blur-md p-3 sm:p-4 rounded-lg border border-green-500/30 shadow-[0_0_8px_rgba(34,197,94,0.3)] w-full sm:w-1/2 order-1">
               <div className="grid grid-cols-4 gap-1 sm:gap-3">
                 {hobbies.map((hobby, index) => (
-                  <motion.div
+                  <ItemCard
                     key={hobby.name}
-                    className="relative group cursor-pointer"
+                    item={hobby}
+                    isSelected={selectedHobby?.name === hobby.name}
                     onClick={() => setSelectedHobby(hobby)}
-                    data-aos="fade-up"
-                    data-aos-delay={100 + (index % 5) * 50}
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <div
-                      className={`aspect-square flex items-center justify-center relative transition-all duration-200 border-2 rounded-lg ${
-                        selectedHobby?.name === hobby.name
-                          ? `${hobby.bgColor} border-green-500 ${hobby.glowColor} backdrop-blur-md scale-105`
-                          : `bg-gray-800/50 border-gray-700/50 group-hover:${hobby.bgColor} group-hover:border-green-500 group-hover:${hobby.glowColor} group-hover:backdrop-blur-md`
-                      }`}
-                      style={{ width: '3rem', height: '3rem' }}
-                    >
-                      {hobby.icon}
-                    </div>
-                    <p className="text-center text-gray-300 text-xs font-mono mt-1 truncate">{hobby.name}</p>
-                  </motion.div>
+                    delay={100 + (index % 5) * 50}
+                  />
                 ))}
               </div>
             </div>
           </motion.div>
         );
-
       default:
         return null;
     }
@@ -303,9 +280,7 @@ export default function About() {
       <div className="max-w-6xl mx-auto space-y-6 font-mono relative z-10 min-h-screen flex flex-col">
         {/* Header Section */}
         <div className="text-center" data-aos="fade-up">
-          <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 drop-shadow-[0_0_8px_rgba(34,211,238,0.7)]">
-            Tentang Saya
-          </h3>
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 drop-shadow-[0_0_8px_rgba(34,211,238,0.7)]">Tentang Saya</h3>
           <p className="text-gray-300 mt-2 text-sm sm:text-base md:text-lg max-w-4xl mx-auto">
             Menggabungkan teknologi, seni, dan ekosistem mini untuk proyek interaktif yang inovatif.
           </p>
