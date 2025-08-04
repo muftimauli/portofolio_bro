@@ -8,7 +8,6 @@ import { GiPaintBrush, GiGuitar } from 'react-icons/gi';
 import Image from 'next/image';
 import IconGilir from './IconGilir';
 
-// Item data dengan ikon dan warna (tidak diubah)
 const itemData = {
   html: { name: 'HTML', icon: <FaHtml5 size={24} className="text-orange-500" />, description: 'Mampu membuat struktur web kompleks dengan semantik HTML5 dan aksesibilitas.', bgColor: 'bg-orange-900/30', glowColor: 'shadow-[0_0_15px_#fb923c,0_0_25px_#fb923c]' },
   css: { name: 'CSS', icon: <FaCss3Alt size={24} className="text-blue-500" />, description: 'Menguasai styling responsif, animasi CSS, dan framework seperti Tailwind.', bgColor: 'bg-cyan-900/30', glowColor: 'shadow-[0_0_15px_#22d3ee,0_0_25px_#22d3ee]' },
@@ -50,7 +49,6 @@ const getItemCardClass = (isSelected, item) => {
   if (isSelected) {
     return `${base}${item.bgColor} border-cyan-500 ${item.glowColor} backdrop-blur-md scale-105`;
   }
-  // kelas tanpa interpolasi dinamis untuk hover dan lainnya
   return `${base} bg-gray-800/50 border-gray-700/50 group-hover:bg-gray-900 group-hover:border-cyan-500 group-hover:shadow-lg group-hover:backdrop-blur-md`;
 };
 
@@ -134,6 +132,7 @@ export default function About() {
             </div>
           </motion.div>
         );
+
       case 'keahlian-minat':
         return (
           <motion.div
@@ -146,7 +145,6 @@ export default function About() {
             data-aos="fade-up"
             data-aos-delay="200"
           >
-            {/* Deskripsi dan ikon dipisah vertikal di mobile, horizontal di sm ke atas */}
             <div className="flex-1 min-w-0 order-2">
               <ItemDetail selectedItem={selectedSkill} title="Keahlian" />
             </div>
@@ -165,6 +163,7 @@ export default function About() {
             </div>
           </motion.div>
         );
+
       case 'organisasi':
         return (
           <motion.div
@@ -199,6 +198,7 @@ export default function About() {
             </div>
           </motion.div>
         );
+
       case 'hobi':
         return (
           <motion.div
@@ -211,7 +211,6 @@ export default function About() {
             data-aos="fade-up"
             data-aos-delay="200"
           >
-            {/* Vertikal di mobile, horizontal di sm ke atas */}
             <div className="flex-1 min-w-0 order-2">
               <ItemDetail selectedItem={selectedHobby} title="Hobi" />
             </div>
